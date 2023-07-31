@@ -1,0 +1,53 @@
+<%- include('components/header') %>
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchants</title>
+  </head>
+
+  <body>
+    <div class="w-75 p-3">
+      <div class="row row-cols-1 row-cols-md-1 g-4">
+
+        <% merchantInfo.forEach( (eachMerchant)=> { %>
+
+
+          <div class="card mb-3" style="max-width: 540px;">
+
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <a href="/eachMerchant?bid=<%= eachMerchant.merchant_id %> ">
+
+                  <img src="<%= eachMerchant.merchant_image %>" class="card-img" alt="Image not found">
+                </a>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <%= eachMerchant.merchant_name %>
+                  </h5>
+                  <p class="card-text"><small class="text-body-secondary"> <%= eachMerchant.merchant_info %> </small></p>
+                  <p class="card-text"><small class="text-body-secondary"><a href="url"> <%= eachMerchant.merchant_url %> </a></small></p>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col">
+
+
+            <% }); %>
+
+          </div>
+      </div>
+
+
+
+
+  </body>
+
+  </html>

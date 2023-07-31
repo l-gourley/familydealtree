@@ -1,0 +1,72 @@
+<%- include('components/header') %>
+
+  <div class="w-75 p-3">
+    <div class="row g-4">
+
+      <% dealinfo.forEach( (eachDeal)=> {
+
+
+        const options = {
+        weekday: 'long',
+        month: 'long',
+        day: '2-digit'
+        }
+        let datesub = eachDeal.date_submitted.toLocaleString('en-GB', options);
+        %>
+        <div class="container mt-5">
+          <div class="card mt-4">
+
+            <div class="row ">
+              <div class="col-md-4">
+                <a href="/eachDeal?bid=<%= eachDeal.offer_id %> ">
+
+                  <img src="<%= eachDeal.offer_image %>" class="img-fluid" alt="Image not found">
+                </a>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title mt-2">
+                    <%= eachDeal.offer_name %>
+                  </h5>
+                  <h6>
+                    <%= eachDeal.offer_desc %>
+                  </h6>
+                  <p class="card-text">
+                    <small class="text-body-secondary">
+                      <%= eachDeal.location_type %> with
+                        <%= eachDeal.merchant_name %>
+                    </small>
+                  </p>
+                  <p class="card-text">
+                    <small class="text-body-secondary">
+                      <a href="<%= eachDeal.offer_url %> " target="_blank">Click to
+                        visit deal on website
+                      </a>
+                    </small>
+                  </p>
+
+                  <p class="card-text">
+                    <small class="text-body-secondary">
+                      Submitted by <%= eachDeal.username %>
+                        on <%= datesub %>
+                    </small>
+                  </p>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <% }); %>
+
+    </div>
+  </div>
+
+
+
+
+
+  <%- include('components/footer') %>

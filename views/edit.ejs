@@ -1,0 +1,99 @@
+<%- include('components/header') %>
+  <!DOCTYPE html>
+  <html>
+
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>stacksofwax</title>
+    <link rel="stylesheet" href="gui.css">
+  </head>
+
+
+  <body>
+        <% row.forEach((member) => { %>
+
+    <header>
+      <h4>Manage Account</h4>
+      <p> Welcome to your Dashboard : <%= member.username %>
+      </p>
+      <p><a href='/home'>Home</a> | <a href='/logout'>Logout</a> </p>
+
+
+    </header>
+    <main class="container">
+        <div>
+
+        <form action="/editUsername" method="POST">
+        <input type="hidden" name="id_field" value="<%= member.member_id %>">
+          <div class="input-group mb-3">
+            <input type="text" name="user_field" class="form-control" placeholder="Edit Username"
+              aria-label="Username" aria-describedby="button-addon2"
+              value="<%= member.username %>">
+            <button type="submit">Update</button>
+          </div>
+
+
+      </form>
+
+
+
+      <form action="/editFirstName" method="POST">
+        <input type="hidden" name="id_field" value="<%= member.member_id %>">
+          <div class="input-group mb-3">
+            <input type="text" name="first_name_field" class="form-control" placeholder="Edit First Name"
+              aria-label="First Name" aria-describedby="button-addon2"
+              value="<%= member.first_name %>">
+            <button type="submit">Update</button>
+          </div>
+
+
+      </form>
+
+      <form action="/editLastName" method="POST">
+        <input type="hidden" name="id_field" value="<%= member.member_id %>">
+          <div class="input-group mb-3">
+            <input type="text" name="last_name_field" class="form-control" placeholder="Edit Last Name"
+              aria-label="Last Name" aria-describedby="button-addon2"
+              value="<%= member.last_name %>">
+            <button type="submit">Update</button>
+          </div>
+      </form>
+
+      <form action="/editEmail" method="POST">
+        <input type="hidden" name="id_field" value="<%= member.member_id %>">
+          <div class="input-group mb-3">
+            <input type="text" name="email_field" class="form-control" placeholder="Edit Email"
+              aria-label="Email" aria-describedby="button-addon2"
+              value="<%= member.email %>">
+            <button type="submit">Update</button>
+          </div>
+      </form>
+
+      <form action="/editCounty" method="POST">
+        <input type="hidden" name="id_field" value="<%= member.member_id %>">
+          <div class="input-group mb-3">
+            <input type="text" name="county_field" class="form-control" placeholder="Edit County"
+              aria-label="County" aria-describedby="button-addon2"
+              value="<%= member.county %>">
+            <button type="submit">Update</button>
+          </div>
+      </form>
+
+           <form action="/editCountry" method="POST">
+        <input type="hidden" name="id_field" value="<%= member.member_id %>">
+          <div class="input-group mb-3">
+            <input type="text" name="country_field" class="form-control" placeholder="Edit Country"
+              aria-label="Country" aria-describedby="button-addon2"
+              value="<%= member.country %>">
+            <button type="submit">Update</button>
+          </div>
+      </form>
+
+
+
+    </div>
+    </main>
+    <% }); %>
+
+  </body>

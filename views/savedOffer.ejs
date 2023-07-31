@@ -1,0 +1,67 @@
+<%- include('components/header') %>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>IndividualVoucher</title>
+        <link rel="stylesheet" href="gui.css">
+        
+    </head>
+
+    <body>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+
+            <% row.forEach( (eachOffer)=> { 
+
+                const options = {
+                    weekday: 'long',
+                    month: 'long',
+                    day: '2-digit'
+                }
+                let datesub = eachOffer.date_submitted.toLocaleString('en-GB', options); %>
+
+
+                <div class="col">
+
+                    <div class="card">
+
+                            
+                        <img src="<%= eachOffer.offer_image %> " class="card-img-top" alt="...">
+                        
+
+
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= eachOffer.offer_name %>
+                            </h5>
+                            <p class="card-text">
+                                <%= eachOffer.offer_desc %>
+                            </p>
+                            <p class="card-text">
+                                Deal Starts : <%= eachOffer.start_date %>
+                                Deal Expires : <%= eachOffer.expiry_date %>
+
+                            </p>
+                            <p class="card-text">
+                                Submitted by : <%= eachOffer.username%> on <%= datesub %>
+                            </p>
+                        </div>
+                        
+                        
+
+                    </div>
+                </div>
+                <% }); %>
+            
+        </div>
+        <a href='/dashboard' class="btn btn-primary"> BACK </a>
+
+
+
+
+
+    </body>
+    <%- include('components/footer') %>

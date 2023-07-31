@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    background-color:antiquewhite;
+}
+
+.btn-back {
+    padding: 10px 15px; 
+    margin-bottom: 20px; 
+}
+
+
+h1{
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+p{
+
+margin: 0;
+margin-bottom: 15px;
+padding: 0px 50px;
+font-size: 18px;
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+text-align: justify;
+}
+
+.content-wrap{
+    flex: 1;
+    width: 100%;
+}
+
+.footer{
+    width: 100%;
+    height: auto;
+    position: relative;
+    bottom: 0;
+    left: 0;
+
+}
+.inner-footer{
+    margin: 0px;
+    padding: 0;
+    background-color: antiquewhite;
+}
+
+.socials{
+    text-align: center;
+}
+
+.socials ul{
+    padding: 10px;
+    display: flex;
+    width: 300px;
+    height: 30px;
+    margin: auto;
+}
+
+.social-icons{
+    list-style: none;
+    display: inline-block;
+}
+
+.social-icons a{
+    padding: 10px 20px;
+    font-size: 25px;
+    color: cadetblue;
+    transition: all .25s;
+}
+
+.social-icons a:hover{
+    color: aquamarine;
+}
+
+.quick-links{
+    display: flex;
+    width: 500px;
+    height: 70px;
+    color: cadetblue;
+}
+
+.quick-links ul{
+    display: flex;
+}
+
+.quick-items{
+    list-style: none;
+}
+
+.quick-items a{
+    text-decoration: none;
+    padding: 0px 15px;
+    font-size: 20px;
+    color:cadetblue;
+    transition: all .25s;
+
+}
+
+.quick-items a:hover{
+    color: aquamarine;
+}
+
+.outer-footer{
+    padding: 15px;
+    text-align: center;
+    color: aliceblue;
+    font-size: 18px;
+    background-color: goldenrod;
+}
+
+.small-image {
+    width: 150px;
+    height: 100px;
+}
+
+
+.btn-primary {
+background-color:lightseagreen;
+border-color:lightseagreen;
+
+
+}
+
+.container {
+    margin-bottom: 20px;
+}
+
+.account-management {
+    padding: 20px;
+    background-color: cadetblue;
+    color:floralwhite;
+    margin-bottom: 20px;
+}
+
+h4 {
+    margin-bottom: 15px;
+}
+

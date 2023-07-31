@@ -1,0 +1,77 @@
+<%- include('components/header') %>
+
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+        <% dealrow.forEach( (eachDeal)=> {
+
+            const options = {
+            weekday: 'long',
+            month: 'long',
+            day: '2-digit'
+            }
+            let datesub = eachDeal.date_submitted.toLocaleString('en-GB', options); %>
+
+
+            <div class="col">
+
+                <div class="card">
+
+
+                    <img src="<%= eachDeal.offer_image %> " class="card-img-top" alt="...">
+
+
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= eachDeal.offer_name %>
+                        </h5>
+                        <p class="card-text">
+                            <%= eachDeal.offer_desc %>
+                        </p>
+                        <p class="card-text">
+                            Deal Starts : <%= eachDeal.start_date %>
+                                Deal Expires : <%= eachDeal.expiry_date %>
+
+                        </p>
+                        <p class="card-text">
+                            Submitted by : <%= eachDeal.username%> on <%= datesub %>
+                        </p>
+                    </div>
+
+                    <div>
+                        <% if (member && member.length> 0 ) { %>
+
+                            <form action="/savedOffer" method="POST">
+                                <input type="hidden" name="offer_id" value="<%= eachDeal.offer_id %>">
+                                <input type="hidden" name="member_id" value="<%= eachDeal.member_id %>">
+                                <button type="submit" values="submit" class="btn btn-primary">
+                                    Add to Saved
+                                </button>
+                            </form>
+
+                            <div class="container">
+                                <form action="/submitDealLike" method="POST">
+                                    <button type="submit" class="btn like-btn"><i class="far fa-heart"></i></button>
+                                    <input type="hidden" name="memberid" value="<%= member[0].member_id %>">
+                                    <input type="hidden" name="offer_id" value="<%=eachDeal.offer_id%>">
+                                </form>
+                            </div>
+
+                            <% }; %>
+                    </div>
+
+
+                </div>
+            </div>
+            <% }); %>
+
+    </div>
+    <a href='deals' class="btn btn-primary"> BACK </a>
+
+
+
+
+
+
+    <%- include('components/footer') %>

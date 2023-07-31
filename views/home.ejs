@@ -1,0 +1,55 @@
+<%- include('components/header.ejs') %>
+
+
+
+
+  <div class="container">
+    <div class="row">
+
+      <% offerdata.forEach( (eachOffer)=> {
+
+        const options = {
+        weekday: 'long',
+        month: 'long',
+        day: '2-digit'
+        }
+
+        let datesub = eachOffer.date_submitted.toLocaleString('en-GB', options);
+
+        %>
+
+        <div class="col">
+
+          <div class="w-75 p-3">
+            <div class="row row-cols-1 row-cols-md-1 g-4">
+              <div class="card mb-3" style="max-width: 540px;">
+
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <a href="/offer/<%= eachOffer.offer_type %>/<%= eachOffer.offer_id %>">
+
+                      <a href="/eachOffer?bid=<%= eachOffer.offer_id %> ">
+
+                        <img src="<%= eachOffer.offer_image %>" class="card-img" alt="Image not found">
+                      </a>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <%= eachOffer.offer_name %>
+                      </h5>
+                      <p class="card-text"><small class="text-body-secondary">Date submitted: <%= datesub %></small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+
+        </div>
+    </div>
+  </div>
+
+
+  <%- include('components/footer') %>
