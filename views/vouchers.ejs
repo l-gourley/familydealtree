@@ -1,75 +1,79 @@
-<%- include('components/header.ejs') %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deals</title>
-</head>
-<body>
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <%- include('components/header') %>
+  </head>
+
+  <body>
     <div class="w-75 p-3">
       <div class="row g-4">
-  
-          <% voucherinfo.forEach( (eachVoucher)=> {
-            
-            const options = {
-                    weekday: 'long',
-                    month: 'long',
-                    day: '2-digit'
-                }
-                let datesub = eachVoucher.date_submitted.toLocaleString('en-GB', options); %>
+
+        <% voucherinfo.forEach( (eachVoucher)=> {
+
+          const options = {
+          weekday: 'long',
+          month: 'long',
+          day: '2-digit'
+          }
+          let datesub = eachVoucher.date_submitted.toLocaleString('en-GB', options); %>
 
 
-  
-  
-              <div class="container mt-5">
-                  <div class="card mt-4">
-                    <div class="row">
-                    <div class="col-md-4">
-                      <a href="/eachVoucher?bid=<%= eachVoucher.offer_id %> ">
-  
-                      <img src="<%= eachVoucher.offer_image %>" class="card-img" alt="Image not found">
-                      </a>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="card-title">
-                          <%= eachVoucher.offer_name %>
-                        </h5>
-                        <h6>
-                          <%= eachVoucher.offer_desc %>
-                        </h6>
-                        <p class="card-text">
-                        <small class="text-body-secondary">
+
+
+          <div class="container mt-5">
+            <div class="card mt-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <a href="/eachVoucher?bid=<%= eachVoucher.offer_id %> ">
+
+                    <img src="<%= eachVoucher.offer_image %>" class="card-img" alt="Image not found">
+                  </a>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%= eachVoucher.offer_name %>
+                    </h5>
+                    <h6>
+                      <%= eachVoucher.offer_desc %>
+                    </h6>
+                    <p class="card-text">
+                      <small class="text-body-secondary">
                         <%= eachVoucher.location_type %> with
-                        <%= eachVoucher.merchant_name %>
-                        </small>
-                        </p>
-                        <p class="card-text">
+                          <%= eachVoucher.merchant_name %>
+                      </small>
+                    </p>
+                    <p class="card-text">
                       <small class="text-body-secondary">
                         <a href="<%= eachVoucher.offer_url %> " target="_blank">Click to
                           visit deal on website
                         </a>
                       </small>
                     </p>
-                        <p class="card-text">
-                          <small class="text-body-secondary">
-                            Submitted by <%= eachVoucher.username %>
-                             on <%= datesub %>
-                          </small>
-                        </p>
-                      </div>
-                    </div>
+                    <p class="card-text">
+                      <small class="text-body-secondary">
+                        Submitted by <%= eachVoucher.username %>
+                          on <%= datesub %>
+                      </small>
+                    </p>
                   </div>
                 </div>
               </div>
-  
-                 
-              <% }); %>
-  
+            </div>
+          </div>
+
+
+          <% }); %>
+
       </div>
-      </div>
-  
-      
+    </div>
+
+
+    <footer>
+      <%- include('components/footer') %>
+    </footer>
+
   </body>
-</html>
+
+  </html>

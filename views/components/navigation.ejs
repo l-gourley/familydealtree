@@ -1,0 +1,160 @@
+
+
+<div class="container">
+    <form class="filter">
+        <div class="item">
+            <label for="">Online / Offline Offer</label>
+            <select name="location_type">
+                <option value="">----</option>
+                <option value="Online Offer">Online Offer</option>
+                <option value="Instore Offer">Instore Offer</option>
+
+            </select>
+        </div>
+        <div class="region">
+            <select name="region">
+                <option value="">----</option>
+                <option value="Region">Region</option>
+
+            </select>
+            
+        </div>
+    </form>
+</div>
+
+
+<%- include('components/header') %>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Submit Voucher</title>
+        <link rel="stylesheet" href="gui.css">
+    </head>
+    
+    <main class="container">
+       
+        <p> Logged in as : <%= member.username %> </p>
+  
+
+
+        <h1> Submit Voucher! </h1>
+        <form action="/submitVoucher" method="POST" id="send">
+            
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Voucher Title" aria-label="deal" name="deal">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Voucher Description" aria-label="password" name="desc">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Insert Image url" aria-label="image" name="img">
+                </div>
+                
+            </div>
+           
+           
+            <div class="row">
+
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Voucher code (Optional)" aria-label="code" name="code">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Voucher URL" aria-label="url" name="url">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="date" class="form-control" placeholder="Start Date (Optional)" aria-label="start date" name="start">
+                </div>
+                <div class="col">
+                    <input type="date" class="form-control" placeholder="Expiry Date (Optional)" aria-label="expiry date" name="expire">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <select name="merchant" required class="form-control">
+                        <option value="" selected> Select a Merchant...  </option>
+
+                            <% merchantlist.forEach((merchant) => {%>
+                            <option value="<%=merchant.merchant_id %>"><%= merchant.merchant_name %></option>
+                            <% }); %>
+
+                    <!-- <input type="text" class="form-control" placeholder="Merchant" aria-label="discount type" name="merchant_name"> -->
+                    </select>
+                </div>
+                <div class="col">
+                    <select name="discount_type" class="form-control">
+                        <option value="" selected> Select a Discount Type (Optional)  </option>
+
+                            <% dtypelist.forEach((disType) => {%>
+                            <option value="<%=disType.discount_type_id %>"><%= disType.discount_type%></option>
+                            <% }); %>
+
+                    </select>
+                    <!-- <input type="text" class="form-control" placeholder="Discount Type (Optional)" aria-label="discount type" name="discount_type"> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <select name="category" required class="form-control">
+                        <option value="" selected> Select a Category...  </option>
+
+                            <% catlist.forEach((categorySel) => {%>
+                            <option value="<%=categorySel.category_id %>"><%= categorySel.category %></option>
+                            <% }); %>
+
+                    </select>
+                    <!-- <input type="text" class="form-control" placeholder="Category" aria-label="category" name="category"> -->
+                </div>
+                <div class="col">
+                    <select name="location_type" required class="form-control">
+                        <option value="" selected> Online / Offline   </option>
+
+                            <% ltypelist.forEach((locationType) => {%>
+                            <option value="<%=locationType.location_type_id %>"><%= locationType.location_type %></option>
+                            <% }); %>
+
+                    </select>
+                    <!-- <input type="text" class="form-control" placeholder="Online / Offline" aria-label="location type" name="location_type"> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <select name="region" class="form-control">
+                        <option value="" selected> Select a Region (Optional)  </option>
+
+                            <% reglist.forEach((regionsel) => {%>
+                            <option value="<%=regionsel.region_id %>"><%= regionsel.region %></option>
+                            <% }); %>
+
+                    </select>
+                    <!-- <input type="text" class="form-control" placeholder="City / County" aria-label="region" name="region"> -->
+                </div>
+                <div class="col">
+                    <select name="county" class="form-control">
+                        <option value="" selected> Select a County (Optional)  </option>
+
+                            <% coulist.forEach((countysel) => {%>
+                            <option value="<%=countysel.county_id %>"><%= countysel.county %></option>
+                            <% }); %>
+
+                    </select>
+                    <!-- <input type="text" class="form-control" placeholder="Region" aria-label="county" name="county"> -->
+                </div>
+            </div>
+         
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary" value="send">Submit</button>
+            </div>
+        </form>
+
+    </main>
+    </html>

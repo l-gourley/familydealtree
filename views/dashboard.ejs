@@ -1,19 +1,16 @@
-<%- include('components/header') %>
-  <!DOCTYPE html>
-  <html>
+<!DOCTYPE html>
+<html>
 
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="gui.css">
-  </head>
+<head>
+  <%- include('components/header') %>
+
+</head>
 
 
-  <body>
+<body>
 
-    <header>
-      <div class="account-management">
+  <header>
+    <div class="account-management">
       <h4>Manage Account</h4>
       <p class="welcome-msg"> Welcome to your Dashboard : <%= userdata.username %>
       </p>
@@ -22,210 +19,209 @@
     </div>
 
 
-    </header>
+  </header>
 
 
-    <div class="container">
-      <div class="jumbotron">
-        <div class="card">
+  <div class="container">
+    <div class="jumbotron">
+      <div class="card">
 
-          <div class="card-header">
-            Member Details
-          </div>
+        <div class="card-header">
+          Member Details
+        </div>
 
-          <div class="card-body">
-            
-            <h5 class="card-title">Date Joined : <%= userdata.date_joined %>
-            </h5>
-            <table class="table">
-              <thead>
+        <div class="card-body">
+
+          <h5 class="card-title">Date Joined : <%= userdata.date_joined %>
+          </h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Details</th>
+                <th scope="col">Edit</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Username</th>
+                <td>
+                  <%= userdata.username %>
+                </td>
+                <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Email Address</th>
+                <td>
+                  <%= userdata.email %>
+                </td>
+                <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">First Name</th>
+                <td>
+                  <%= userdata.first_name %>
+                </td>
+                <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">Last Name</th>
+                <td>
+                  <%= userdata.last_name %>
+                </td>
+                <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">City / County</th>
+                <td>
+                  <%= userdata.county %>
+                </td>
+                <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">Region</th>
+                <td>
+                  <%= userdata.country %>
+                </td>
+                <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <div class="container">
+    <div class="jumbotron">
+      <div class="card">
+
+        <div class="card-header">
+          Saved Offers
+        </div>
+
+        <div class="card-body">
+
+          <h5 class="card-title">Number of Saved Offers : <%= saveddata.length %>
+          </h5>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Saved Offers </th>
+                <th scope="col"> </th>
+                <th scope="col">View</th>
+                <th scope="col">Remove</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              <% saveddata.forEach((savedoffer)=> { %>
                 <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Details</th>
-                  <th scope="col">Edit</th>
-
-
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Username</th>
+                  <th scope="row">
+                    <img src=<%=savedoffer.offer_image %> alt="Offer image" class="small-image">
+                  </th>
                   <td>
-                    <%= userdata.username %>
+                    <%= savedoffer.offer_name %>
+
                   </td>
-                  <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></button>
+                  <td><a href="/viewOffer?eid=<%=savedoffer.saved_id%>">
+
+                      <i class="fa-regular fa-eye"></i></a>
                   </td>
-                </tr>
-                <tr>
-                  <th scope="row">Email Address</th>
                   <td>
-                    <%= userdata.email %>
+
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#confirmdeletion-<%= savedoffer.saved_id %>">
+                      <i class="fa-solid fa-trash">
+                      </i></a>
+
                   </td>
-                  <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
-                </tr>
-                <tr>
-                  <th scope="row">First Name</th>
-                  <td>
-                    <%= userdata.first_name %>
-                  </td>
-                  <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
-                </tr>
-                <tr>
-                  <th scope="row">Last Name</th>
-                  <td>
-                    <%= userdata.last_name %>
-                  </td>
-                  <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
-                </tr>
-                <tr>
-                  <th scope="row">City / County</th>
-                  <td>
-                    <%= userdata.county %>
-                  </td>
-                  <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
-                </tr>
-                <tr>
-                  <th scope="row">Region</th>
-                  <td>
-                    <%= userdata.country %>
-                  </td>
-                  <td><a href="/edit?eid=<%=userdata.member_id%>"><i class="fas fa-edit"></i></a></td>
                 </tr>
 
-              </tbody>
-            </table>
+                <!-- Remove Saved Offer Modal -->
+                <div class="modal fade" id="confirmdeletion-<%= savedoffer.saved_id %>" tabindex="-1"
+                  aria-labelledby="confirmdeletionLabel" aria-hidden="true">
+                  <div class="modal-dialog">
 
-          </div>
+                    <div class="modal-content">
+
+                      <div class="modal-header">
+
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Hi, </h1>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form action="/deleteSavedOffer" method="POST">
+
+                        <div class="modal-body">
+                          <input type="hidden" name="memberid" value="<%= userdata.member_id %>">
+                          <input type="hidden" name="savedid" value="<%=savedoffer.saved_id%>">
+
+                          <h4>Are you sure you want to delete this offer from your saved list?</h4>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" name="" class="btn btn-primary">Confirm</button>
+                        </div>
+                      </form>
+
+                    </div>
+
+                  </div>
+                </div>
+
+                <% }); %>
+
+            </tbody>
+          </table>
+
         </div>
       </div>
     </div>
 
 
+  </div>
 
 
 
 
+  <div class="container">
+    <div class="jumbotron">
+      <div class="card">
 
-    <div class="container">
-      <div class="jumbotron">
-        <div class="card">
-
-          <div class="card-header">
-            Saved Offers
-          </div>
-
-          <div class="card-body">
-
-            <h5 class="card-title">Number of Saved Offers : <%= saveddata.length %>
-            </h5>
-
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Saved Offers </th>
-                  <th scope="col"> </th>
-                  <th scope="col">View</th>
-                  <th scope="col">Remove</th>
-
-
-                </tr>
-              </thead>
-              <tbody>
-                <% saveddata.forEach((savedoffer)=> { %>
-                  <tr>
-                    <th scope="row">
-                      <img src=<%=savedoffer.offer_image %> alt="Offer image" class="small-image">
-                    </th>
-                    <td>
-                      <%= savedoffer.offer_name %>
-
-                    </td>
-                    <td><a href="/viewOffer?eid=<%=savedoffer.saved_id%>">
-
-                        <i class="fa-regular fa-eye"></i></a>
-                    </td>
-                    <td>
-
-                      <a href="#" data-bs-toggle="modal"
-                        data-bs-target="#confirmdeletion-<%= savedoffer.saved_id %>">
-                        <i class="fa-solid fa-trash">
-                        </i></a>
-
-                    </td>
-                  </tr>
-                  
-    <!-- Remove Saved Offer Modal -->
-    <div class="modal fade" id="confirmdeletion-<%= savedoffer.saved_id %>" tabindex="-1" aria-labelledby="confirmdeletionLabel"
-      aria-hidden="true">
-      <div class="modal-dialog">
-
-        <div class="modal-content">
-
-          <div class="modal-header">
-
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Hi, </h1>
-
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form action="/deleteSavedOffer" method="POST">
-
-            <div class="modal-body">
-              <input type="hidden" name="memberid" value="<%= userdata.member_id %>">
-              <input type="hidden" name="savedid" value="<%=savedoffer.saved_id%>">
-
-              <h4>Are you sure you want to delete this offer from your saved list?</h4>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" name="" class="btn btn-primary">Confirm</button>
-            </div>
-          </form>
-
+        <div class="card-header">
+          Posted Offers
         </div>
 
-      </div>
-    </div>
-
-                  <% }); %>
-
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-      </div>
-
-
-    </div>
+        <div class="card-body">
+          <h5 class="card-title">Number of Posted Offers :
+          </h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Posted Offers Title</th>
+                <th scope="col"></th>
+                <th scope="col">View</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Remove</th>
 
 
-
-
-    <div class="container">
-      <div class="jumbotron">
-        <div class="card">
-
-          <div class="card-header">
-            Posted Offers
-          </div>
-
-          <div class="card-body">
-            <h5 class="card-title">Number of Posted Offers :
-            </h5>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Posted Offers Title</th>
-                  <th scope="col"></th>
-                  <th scope="col">View</th>
-                  <th scope="col">Edit</th>
-                  <th scope="col">Remove</th>
-
-
-                </tr>
-              </thead>
-              <tbody>
-                <% memberSubmittedOffer.forEach((memberOffer) => { %>
+              </tr>
+            </thead>
+            <tbody>
+              <% memberSubmittedOffer.forEach((memberOffer)=> { %>
                 <tr>
                   <th scope="row">
                     <img src=<%=memberOffer.offer_image %> alt="Offer image" class="small-image">
@@ -234,48 +230,48 @@
                     <%= memberOffer.offer_name %>
                   </td>
                   <td><a href="/viewPostedOffer?eid=<%=memberOffer.offer_id%>">
-                    <i class="fa-regular fa-eye"></i></a>
+                      <i class="fa-regular fa-eye"></i></a>
                   </td>
                   <td><a href="/editOffer?eid=<%=memberOffer.offer_id%>"><i class="fas fa-edit"></i></a>
                   </td>
                   <td><a href="#"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
                 <% }); %>
-              </tbody>
-            </table>
+            </tbody>
+          </table>
 
-          </div>
         </div>
       </div>
-
-
     </div>
 
 
-
-    <div class="container">
-      <div class="jumbotron">
-        <div class="card">
-
-          <div class="card-header">
-            Liked Offers
-          </div>
-
-          <div class="card-body">
-            <h5 class="card-title">Number of Liked Offers :
-            </h5>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Liked Offers Title</th>
-                  <th scope="col"> </th>
-                  <th scope="col">View</th>
+  </div>
 
 
-                </tr>
-              </thead>
-              <tbody>
-                <% memberLike.forEach((likedOffer)=> { %>
+
+  <div class="container">
+    <div class="jumbotron">
+      <div class="card">
+
+        <div class="card-header">
+          Liked Offers
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">Number of Liked Offers :
+          </h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Liked Offers Title</th>
+                <th scope="col"> </th>
+                <th scope="col">View</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              <% memberLike.forEach((likedOffer)=> { %>
 
                 <tr>
                   <th scope="row">
@@ -285,23 +281,23 @@
                     <%=likedOffer.offer_name %>
                   </td>
                   <td><a href="/viewLikedOffer?eid=<%=likedOffer.offer_id%>">
-                    <i class="fa-regular fa-eye"></i></a></button>
+                      <i class="fa-regular fa-eye"></i></a></button>
                   </td>
                 </tr>
                 <% }); %>
 
-              </tbody>
-            </table>
+            </tbody>
+          </table>
 
-          </div>
         </div>
       </div>
-
-
     </div>
 
 
-    <!-- Modal
+  </div>
+
+
+  <!-- Modal
     <div class="modal fade" id="editUsernameModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -320,4 +316,10 @@
       </div>
     </div> -->
 
-  </body>
+  <footer>
+    <%- include('components/footer') %>
+  </footer>
+
+</body>
+
+</html>

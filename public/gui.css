@@ -1,9 +1,11 @@
 body {
     margin: 0;
-    padding: 0;
+    font-family: monospace;
+    background-image: linear-gradient(to bottom right, #EFD7F4, #f0fbff);
+    /* padding: 0;
     position: relative;
     min-height: 100vh;
-    background-color:antiquewhite;
+    background-color:antiquewhite; */
 }
 
 .btn-back {
@@ -39,12 +41,17 @@ text-align: justify;
     position: relative;
     bottom: 0;
     left: 0;
+    margin-top: 50px;
 
 }
 .inner-footer{
     margin: 0px;
-    padding: 0;
+    padding: 20px 0;
     background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .socials{
@@ -54,7 +61,7 @@ text-align: justify;
 .socials ul{
     padding: 10px;
     display: flex;
-    width: 300px;
+    justify-content: center;    
     height: 30px;
     margin: auto;
 }
@@ -80,6 +87,8 @@ text-align: justify;
     width: 500px;
     height: 70px;
     color: cadetblue;
+    justify-content: center;
+    padding: 30px 0;
 }
 
 .quick-links ul{
@@ -124,6 +133,7 @@ border-color:lightseagreen;
 
 }
 
+
 .container {
     margin-bottom: 20px;
 }
@@ -137,5 +147,77 @@ border-color:lightseagreen;
 
 h4 {
     margin-bottom: 15px;
+}
+
+.filter-container {
+    background-color: lightseagreen;
+    width: 1200px;
+    max-width: 100%;
+    margin: 50px auto 0;
+    border-radius: 10px;
+    padding-bottom: 30px;
+
+}
+
+
+.filter {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 32.666% 32.666% 32.666%;
+    column-gap: 1%;
+    row-gap: 10px;
+}
+
+.filter .item {
+    background-color:snow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter .item select,
+.filter .item input,
+.filter .item button{
+    width: 100%;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+    border-left: 1px solid #ddd;
+    outline: none;
+}
+
+.filter .item label {
+    display: block;
+    width: 40%;
+    padding: 0 10px;
+    
+}
+
+.filter .item.submit button {
+    background-color: lavenderblush;
+    color:cadetblue;
+    
+}
+
+#list {
+    padding: 20px;
+    display: grid;
+    column-gap: 1%;
+    grid-template-columns: 32.666% 32.666% 32.666%;
+    row-gap: 10px;
+}
+
+#list .item img {
+
+width: 90%;
+height: 300px;
+object-fit: cover;
+margin: 20px 0;
+border-radius: 10px;
+
+}
+
+#list .item .title {
+    font-weight: bold;
 }
 

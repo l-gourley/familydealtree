@@ -1,12 +1,92 @@
-<%- include('components/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('components/header') %>
+</head>
+
+<body>
+
+  <div class="filter-container">
+      <form class="filter" action="/home" method="GET">
+        <div class="item">
+          <label for="">Online / Offline Offer</label>
+          <select name="location_type">
+            <option style="display:none;"></option>
+            <% locationType.forEach((filterLocation) => { %>
+            <option value="<%=filterLocation.location_type_id %>">
+              <%=filterLocation.location_type %>
+            </option>
+            <% }); %>
+
+          </select>
+        </div>
+
+        <div class="item">
+          <label for="">Region</label>
+          <select name="region">
+            <option style="display:none;"></option>
+            <% region.forEach((filterRegion) => { %>
+            <option value="<%=filterRegion.region_id %>">
+              <%=filterRegion.region %>
+            </option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="item">
+          <label for="">City / County</label>
+          <select name="county">
+            <option style="display:none;"></option>
+            <% county.forEach((filterCounty) => { %>
+              <option value="<%=filterCounty.county_id %>">
+                <%=filterCounty.county %>
+              </option>
+              <% }); %>
+          </select>
+        </div>
+
+        <div class="item">
+          <label for="">Submitted before</label>
+          <input type="date" name="datesub" value="">
+        </div>
+
+        <div class="item">
+          <label for="">Discount Type</label>
+          <select name="discount_type">
+          <option style="display:none;"></option>
+          <% discountType.forEach((filterDiscount) => { %>
+            <option value="<%=filterDiscount.discount_type_id %>">
+              <%=filterDiscount.discount_type %>
+            </option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="item submit">
+          <button>Search</button>
+        </div>
+      </form>
+     
+      <div id="list">
+        <% if (offer.length === 0) { %>
+          <div class="no-results">No results found.</div>
+        <% } else { %>
+          <% offer.forEach((offerResult) => { %>
+            <div class="item">
+              <img src="<%-offerResult.offer_image%>">
+              <div class="title"><%-offerResult.offer_name%></div>
+            </div>
+          <% }); %>
+        <% } %>
+      </div>
+  </div>
 
 
-
-
-  <div class="container">
+  <!-- <div class="container">
     <div class="row">
 
-      <% offerdata.forEach( (eachOffer)=> {
+      <% offer.forEach( (eachOffer)=> {
 
         const options = {
         weekday: 'long',
@@ -38,7 +118,8 @@
                       <h5 class="card-title">
                         <%= eachOffer.offer_name %>
                       </h5>
-                      <p class="card-text"><small class="text-body-secondary">Date submitted: <%= datesub %></small></p>
+                      <p class="card-text"><small class="text-body-secondary">Date submitted: <%= datesub %></small>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -47,9 +128,15 @@
           </div>
           <% }); %>
 
-        </div>
+        </div> -->
     </div>
   </div>
 
 
-  <%- include('components/footer') %>
+  <footer>
+    <%- include('components/footer') %>
+  </footer>
+
+</body>
+
+</html>

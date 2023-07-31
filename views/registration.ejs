@@ -1,14 +1,12 @@
-<%- include('components/header') %>
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>registration</title>
-        <link rel="stylesheet" href="gui.css">
-    </head>
-    
+<head>
+    <%- include('components/header') %>
+</head>
+
+<body>
+
     <main class="container">
         <!-- <% if(typeof sentback != 'undefined' ) {  %>
 
@@ -19,31 +17,36 @@
 
         <h1> Register </h1>
         <form action="/registration" method="POST" id="send">
-            
+
             <div class="row">
                 <div class="col">
-                    <input type="username" class="form-control" placeholder="Username" aria-label="username" name="username">
+                    <input type="username" class="form-control" placeholder="Username" aria-label="username"
+                        name="username">
                 </div>
                 <div class="col">
-                    <input type="password" class="form-control" placeholder="Create Password" aria-label="password" name="password">
+                    <input type="password" class="form-control" placeholder="Create Password" aria-label="password"
+                        name="password">
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col">
-                    <input type="email" class="form-control" placeholder="Email address" aria-label="email_address" name="email_address">
+                    <input type="email" class="form-control" placeholder="Email address" aria-label="email_address"
+                        name="email_address">
                 </div>
-                
+
             </div>
-           
-           
+
+
             <div class="row">
 
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="First name" aria-label="first_name" name="first_name">
+                    <input type="text" class="form-control" placeholder="First name" aria-label="first_name"
+                        name="first_name">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Last name" aria-label="last_name" name="last_name">
+                    <input type="text" class="form-control" placeholder="Last name" aria-label="last_name"
+                        name="last_name">
                 </div>
             </div>
             <div class="row">
@@ -54,7 +57,7 @@
                     <input type="text" class="form-control" placeholder="Country" aria-label="country" name="country">
                 </div>
             </div>
-         
+
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary" value="send">Submit</button>
@@ -62,4 +65,10 @@
         </form>
         <!-- <% } %> -->
     </main>
-    </html>
+    <footer>
+        <%- include('components/footer') %>
+    </footer>
+
+</body>
+
+</html>

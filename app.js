@@ -48,13 +48,80 @@ app.get("/", (req, res) => {
 });
 
 app.get("/home", (request, response) => {
-  let sessionObj = request.session;
+let sessionObj = request.session;
 
-  let allOffers = `SELECT offer_id, offer_name, offer_desc, offer_image, date_submitted 
-                   FROM offer`;
+let locationTypeFilter = request.query.location_type;
+let regionFilter = request.query.region;
+let countyFilter = request.query.county;
+let datesub = request.query.datesub || new Date()
+.toLocaleString("en-GB", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+})
+.split("/")
+.reverse()
+.join("-");
+let discountTypeFilter = request.query.discount_type;
+let params = [];
+let conditions = [];
 
-  connection.query(allOffers, (err, offerdata) => {
+  let allOffers = `SELECT category, offer.category_id, county.county, offer.county_id, 
+                  date_submitted, offer.discount_type_id, discount_type, expiry_date, 
+                  offer.location_type_id, location_type, member.username, offer.member_id, offer_code, 
+                  offer.merchant_id, merchant.merchant_name, offer_desc, offer_id, 
+                  offer_image, offer_name, offer.offer_type_id, offer_url, offer.region_id, region 
+                  FROM offer 
+                  LEFT JOIN category ON offer.category_id = category.category_id
+                  LEFT JOIN county ON offer.county_id = county.county_id
+                  LEFT JOIN discount_type ON offer.discount_type_id = discount_type.discount_type_id
+                  LEFT JOIN location_type ON offer.location_type_id = location_type.location_type_id
+                  LEFT JOIN member ON offer.member_id = member.member_id
+                  LEFT JOIN merchant ON offer.merchant_id = merchant.merchant_id
+                  LEFT JOIN region ON offer.region_id = region.region_id`;
+
+                  if (locationTypeFilter) {
+                    conditions.push("offer.location_type_id = ?");
+                    params.push(locationTypeFilter);
+                  }
+                  if (regionFilter) {
+                    conditions.push("offer.region_id = ?");
+                    params.push(regionFilter);
+                  }
+                  if (countyFilter) {
+                    conditions.push("offer.county_id = ?");
+                    params.push(countyFilter);
+                  }
+                  if (datesub) {
+                    conditions.push("offer.date_submitted <= ?");
+                    params.push(datesub);
+                  }
+                  if (discountTypeFilter) {
+                    conditions.push("offer.discount_type_id = ?");
+                    params.push(discountTypeFilter);
+                  }
+                
+                  if (conditions.length) {
+                    allOffers += " WHERE " + conditions.join(" AND ");
+                  }
+
+                  let filterOffers = allOffers + `; SELECT location_type_id, location_type FROM location_type;
+                                    SELECT region_id, region FROM region;
+                                    SELECT county_id, county FROM county;
+                                    SELECT discount_type_id, discount_type FROM discount_type;
+                                    SELECT date_submitted FROM offer;`
+
+                  // console.log (filterOffers, params);
+
+  connection.query(filterOffers, params, (err, offerdata) => {
     if (err) throw err;
+
+    let offer = offerdata[0];
+    let locationType = offerdata[1];
+    let region = offerdata[2];
+    let county = offerdata[3];
+    let discountType = offerdata[4];
+
 
     if (sessionObj.authen) {
       let user = sessionObj.user;
@@ -63,10 +130,10 @@ app.get("/home", (request, response) => {
 
       connection.query(userSQL, [user], (err, userinfo) => {
         if (err) throw err;
-        response.render("home", { offerdata, userdata: userinfo, user });
+        response.render("home", { offer, userdata: userinfo, user, locationType, region, county, discountType });
       });
     } else {
-      response.render("home", { offerdata, user: null, userinfo: {} });
+      response.render("home", { offer, user: null, userinfo: {}, locationType, region, county, discountType });
     }
   });
 });

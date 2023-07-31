@@ -1,14 +1,8 @@
-<%- include('components/header') %>
-  <!DOCTYPE html>
-  <html>
-
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>stacksofwax</title>
-    <link rel="stylesheet" href="gui.css">
-  </head>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('components/header') %>
+</head>
 
   <body>
         <% row.forEach((offer) => { %>
@@ -88,3 +82,11 @@
     <% }); %>
 
   </body>
+
+  
+<footer>
+  <%- include('components/footer') %>
+</footer>
+
+</body>
+</html>

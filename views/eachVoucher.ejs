@@ -1,76 +1,94 @@
-<%- include('components/header') %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('components/header') %>
+</head>
+
+<body>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+
+    <% voucherrow.forEach( (eachVoucher)=> {
+
+        const options = {
+        weekday: 'long',
+        month: 'long',
+        day: '2-digit'
+        }
+        let datesub = eachVoucher.date_submitted.toLocaleString('en-GB', options); %>
 
 
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
 
-        <% voucherrow.forEach( (eachVoucher)=> {
-
-            const options = {
-            weekday: 'long',
-            month: 'long',
-            day: '2-digit'
-            }
-            let datesub = eachVoucher.date_submitted.toLocaleString('en-GB', options); %>
+            <div class="card">
 
 
-            <div class="col">
-
-                <div class="card">
-
-
-                    <img src="<%= eachVoucher.offer_image %> " class="card-img-top" alt="...">
+                <img src="<%= eachVoucher.offer_image %> " class="card-img-top" alt="...">
 
 
 
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <%= eachVoucher.offer_name %>
-                        </h5>
-                        <p class="card-text">
-                            <%= eachVoucher.offer_desc %>
-                        </p>
-                        <p class="card-text">
-                            Deal Starts : <%= eachVoucher.start_date %>
-                                Deal Expires : <%= eachVoucher.expiry_date %>
-
-                        </p>
-                        <p class="card-text">
-                            Submitted by : <%= eachVoucher.username%> on <%= datesub %>
-                        </p>
-                    </div>
-
-                    <div>
-                        <% if (member && member.length> 0 ) { %>
-                            <form action="/savedOffer" method="POST">
-                                <input type="hidden" name="offer_id" value="<%= eachVoucher.offer_id %>">
-                                <input type="hidden" name="member_id" value="<%= eachVoucher.member_id %>">
-                                <button type="submit" values="submit" class="btn btn-primary">
-                                    Add to Saved
-                                </button>
-                            </form>
-
-                            <div class="container">
-                                <form action="/submitVoucherLike" method="POST">
-                                    <button type="submit" class="btn like-btn"><i class="far fa-heart"></i></button>
-                                    <input type="hidden" name="memberid" value="<%= member[0].member_id %>">
-                                    <input type="hidden" name="voucherid" value="<%=eachVoucher.offer_id%>">
-                                </form>
-                            </div>
-
-                            <% }; %>
-                    </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= eachVoucher.offer_name %>
+                    </h5>
+                    <p class="card-text">
+                        <%= eachVoucher.offer_desc %>
+                    </p>
+                    <p class="card-text">
+                        Merchant / Brand : <%= eachVoucher.merchant %>
+                    </p>
+                    <p class="card-text">
+                       Category :  <%= eachVoucher.category %>
+                    </p>
+                    <p class="card-text">
+                        <% if(eachVoucher.start_date) { %>
+                        Deal Starts : <%= eachVoucher.start_date %>
+                        <% } %>
+                        <% if(eachVoucher.expiry_date) { %>
+                        Deal Expires : <%= eachVoucher.expiry_date %>
+                        <% } %>
 
 
+                    </p>
+                    <p class="card-text">
+                        Submitted by : <%= eachVoucher.username%> on <%= datesub %>
+                    </p>
                 </div>
+
+                <div>
+                    <% if (member && member.length> 0 ) { %>
+                        <form action="/savedOffer" method="POST">
+                            <input type="hidden" name="offer_id" value="<%= eachVoucher.offer_id %>">
+                            <input type="hidden" name="member_id" value="<%= eachVoucher.member_id %>">
+                            <button type="submit" values="submit" class="btn btn-primary">
+                                Add to Saved
+                            </button>
+                        </form>
+
+                        <div class="container">
+                            <form action="/submitVoucherLike" method="POST">
+                                <button type="submit" class="btn like-btn"><i class="far fa-heart"></i></button>
+                                <input type="hidden" name="memberid" value="<%= member[0].member_id %>">
+                                <input type="hidden" name="voucherid" value="<%=eachVoucher.offer_id%>">
+                            </form>
+                        </div>
+
+                        <% }; %>
+                </div>
+
+
             </div>
-            <% }); %>
+        </div>
+        <% }); %>
 
-    </div>
-    <a href='vouchers' class="btn btn-primary btn-back"> BACK </a>
+</div>
+<a href='vouchers' class="btn btn-primary btn-back"> BACK </a>
 
-
-
-
-
-
+<footer>
     <%- include('components/footer') %>
+</footer>
+
+</body>
+
+</html>
