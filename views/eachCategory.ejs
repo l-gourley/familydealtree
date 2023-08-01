@@ -8,6 +8,9 @@
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
 
+        <% if (categoryRow.length===0) { %>
+            <div class="no-results">No results found.</div>
+            <% } else { %>
         <% categoryRow.forEach( (eachCategory)=> {
 
             const options = {
@@ -35,8 +38,12 @@
                             <%= eachCategory.offer_desc %>
                         </p>
                         <p class="card-text">
+                             <% if(eachCategory.start_date) { %>
                             Deal Starts : <%= eachCategory.start_date %>
-                                Deal Expires : <%= eachCategory.expiry_date %>
+                             <% } %>
+                            <% if(eachCategory.expiry_date) { %>
+                            Deal Expires : <%= eachCategory.expiry_date %>
+                            <% } %>
 
                         </p>
                         <p class="card-text">
@@ -64,6 +71,8 @@
                 </div>
             </div>
             <% }); %>
+            <% }; %>
+
 
     </div>
     <a href='category' class="btn btn-primary"> BACK </a>

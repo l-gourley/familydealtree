@@ -36,17 +36,21 @@ app.use(
   })
 );
 
+
 /* callback function stating whether db connection successful or not*/
 connection.connect((err) => {
   if (err) return console.log(err.message);
   console.log("connected to local sql db");
 });
 
+
 //start to listen for request on the following routes
 app.get("/", (req, res) => {
   res.redirect("home");
 });
 
+
+//render home page and filtering table
 app.get("/home", (request, response) => {
 let sessionObj = request.session;
 
@@ -125,6 +129,7 @@ let conditions = [];
 
     if (sessionObj.authen) {
       let user = sessionObj.user;
+
       let userSQL = `SELECT member_id, username, password, email, first_name, last_name, county,
                     country, date_joined FROM member WHERE member_id = ?`;
 
@@ -139,7 +144,7 @@ let conditions = [];
 });
 
 
-//login route
+//login post route
 app.post("/dashboard", (request, response) => {
   let username = request.body.username_field;
   let userpassword = request.body.password_field;
@@ -189,6 +194,7 @@ app.post("/dashboard", (request, response) => {
 });
 
 
+//get dashboard route and send information to member's tables
 app.get("/dashboard", (request, response) => {
   let sessionObj = request.session;
   if (sessionObj.authen) {
@@ -232,9 +238,9 @@ app.get("/dashboard", (request, response) => {
       let memberSubmittedOffer = row[3];
       let memberLike = row[4];
 
-      console.log(userrow);
-      console.log(savedrow);
-      console.log(memberSubmittedOffer);
+      // console.log(userrow);
+      // console.log(savedrow);
+      // console.log(memberSubmittedOffer);
 
       response.render("dashboard", {
         userdata: userrow,
@@ -244,12 +250,15 @@ app.get("/dashboard", (request, response) => {
         memberLike : memberLike
       });
     });
+
   } else {
     response.send(`<br><p> <a href='/home'> Log in </a> to view your dashboard 
                 or  <a href='/registration'> Register </a> as a member</p></br>`);
   }
 });
 
+
+//edit member personal information get route
 app.get("/edit", (request, response) => {
   let sessionObj = request.session;
 
@@ -265,6 +274,8 @@ app.get("/edit", (request, response) => {
   }
 });
 
+
+//edit member offer information
 app.get("/editOffer", (request, response) => {
   let sessionObj = request.session;
 
@@ -281,82 +292,99 @@ app.get("/editOffer", (request, response) => {
                       WHERE offer_id = ?`;
 
     connection.query(memberOffer, [id], (err, row) => {
+
       response.render("editOffer", { row });
     });
   }
 });
 
 
+//post route to update offer name
 app.post("/editOfferName", (request, response) => {
   let changeid = request.body.id_field;
   let offerName = request.body.offer_name_field;
+
   let updatesql = `UPDATE offer SET offer_name = ? WHERE offer_id = ?`;
 
   connection.query(updatesql, [offerName, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
+      // console.table(result);
       response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update offer description
 app.post("/editOfferDesc", (request, response) => {
   let changeid = request.body.id_field;
   let offerDesc = request.body.offer_desc_field;
+
   let updatesql = `UPDATE offer SET offer_desc = ? WHERE offer_id = ?`;
 
   connection.query(updatesql, [offerDesc, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update offer image
 app.post("/editOfferImage", (request, response) => {
   let changeid = request.body.id_field;
   let offerImage = request.body.offer_image_field;
+
   let updatesql = `UPDATE offer SET offer_image = ? WHERE offer_id = ?`;
 
   connection.query(updatesql, [offerImage, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update offer code
 app.post("/editOfferCode", (request, response) => {
   let changeid = request.body.id_field;
   let offerCode = request.body.offer_code_field;
+
   let updatesql = `UPDATE offer SET offer_code = ? WHERE offer_id = ?`;
 
   connection.query(updatesql, [offerCode, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update offer URL
 app.post("/editOfferURL", (request, response) => {
   let changeid = request.body.id_field;
   let offerURL = request.body.offer_URL_field;
+
   let updatesql = `UPDATE offer SET offer_url = ? WHERE offer_id = ?`;
 
   connection.query(updatesql, [offerURL, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update member username
 app.post("/editUsername", (request, response) => {
   let changeid = request.body.id_field;
   let username = request.body.user_field;
@@ -365,85 +393,103 @@ app.post("/editUsername", (request, response) => {
   connection.query(updatesql, [username, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update members first name
 app.post("/editFirstName", (request, response) => {
   let changeid = request.body.id_field;
   let firstname = request.body.first_name_field;
+
   let updatesql = `UPDATE member SET first_name = ? WHERE member_id = ?`;
 
   connection.query(updatesql, [firstname, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update members last name
 app.post("/editLastName", (request, response) => {
   let changeid = request.body.id_field;
   let lastname = request.body.last_name_field;
+
   let updatesql = `UPDATE member SET last_name = ? WHERE member_id = ?`;
 
   connection.query(updatesql, [lastname, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update users email address
 app.post("/editEmail", (request, response) => {
   let changeid = request.body.id_field;
   let email = request.body.email_field;
+
   let updatesql = `UPDATE member SET email = ? WHERE member_id = ?`;
 
   connection.query(updatesql, [email, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update members county or city
 app.post("/editCounty", (request, response) => {
   let changeid = request.body.id_field;
   let county = request.body.county_field;
+
   let updatesql = `UPDATE member SET county = ? WHERE member_id = ?`;
 
   connection.query(updatesql, [county, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//post route to update memmbers country
 app.post("/editCountry", (request, response) => {
   let changeid = request.body.id_field;
   let country = request.body.country_field;
+
   let updatesql = `UPDATE member SET country = ? WHERE member_id = ?`;
 
   connection.query(updatesql, [country, changeid], (err, result) => {
     if (err) throw err;
     if (result) {
-      console.table(result);
-      response.send(`<p>Updated<p>`);
+      // console.table(result);
+      response.send(`<br><p> Updated! Go back to <a href='/dashboard'> dashboard </a></p></br>`);
     }
   });
 });
 
+
+//get registration route
 app.get("/registration", (request, response) => {
   response.render("registration");
 });
+
 
 //log out route to end session
 app.get("/logout", (request, response) => {
@@ -451,6 +497,8 @@ app.get("/logout", (request, response) => {
   response.redirect("/home");
 });
 
+
+//post new registration to database 
 app.post("/registration", async (request, resend) => {
  
   try {
@@ -483,7 +531,7 @@ app.post("/registration", async (request, resend) => {
 
     if(row.length > 0  ) {
 
-      response.send("Please choose another username! This one is taken");
+      response.send("Please choose another username! ");
 
 
     } else {
@@ -573,6 +621,8 @@ app.get("/deals", (request, response) => {
   });
 });
 
+
+//view all shops/brands
 app.get("/merchant", (request, response) => {
   let allMerchant = `SELECT merchant_id, merchant_name, merchant_info, merchant_image, merchant_url 
                   FROM merchant`;
@@ -585,6 +635,7 @@ app.get("/merchant", (request, response) => {
 });
 
 
+//view all categories
 app.get("/category", (request, response) => {
   let allCategory = `SELECT * FROM category`;
 
@@ -603,9 +654,11 @@ app.get("/eachCategory", (request, response) => {
   let category_id = request.query.bid;
   
   let getCategory = `SELECT offer_name, offer_id, offer_desc, offer_image, date_submitted, 
-                    category, merchant.merchant_id FROM offer 
+                    category, start_date, expiry_date, merchant.merchant_id, member.username
+                    FROM offer 
                     INNER JOIN category ON offer.category_id = category.category_id 
                     INNER JOIN merchant ON merchant.merchant_id = offer.merchant_id 
+                    INNER JOIN member ON member.member_id = offer.member_id 
                     WHERE offer.category_id = ? ORDER BY date_submitted DESC`;
 
   let getMember = `SELECT member.member_id, username FROM member 
@@ -614,7 +667,7 @@ app.get("/eachCategory", (request, response) => {
  connection.query(getCategory, [category_id], (err, categoryRow) => {
    if (err) throw err;
                   
-  console.log("category", categoryRow);
+  // console.log("category", categoryRow);
                   
   if(member_id) {
                   
@@ -633,9 +686,6 @@ app.get("/eachCategory", (request, response) => {
   });
 });
                   
-
-
-
 
 //view an individual voucher
 app.get("/eachVoucher", (request, response) => {
@@ -666,14 +716,15 @@ app.get("/eachVoucher", (request, response) => {
 
     
 
-    console.log("voucher", voucherrow);
+    // console.log("voucher", voucherrow);
 
     if(member_id) {
 
       connection.query(getMember, [member_id], (err, member) => {
 
         if (err) throw err;
-        console.log("member ", member);
+
+        // console.log("member ", member);
 
     response.render("eachVoucher", { voucherrow : voucherrow, member: member });
       });
@@ -712,14 +763,14 @@ app.get("/eachDeal", (request, response) => {
   connection.query(getrow, [dealid], (err, dealrow) => {
     if (err) throw err;
 
-    console.log("deal", dealrow);
+    // console.log("deal", dealrow);
 
     if (member_id) {
 
       connection.query(memberQuery, [member_id], (err, member) => {
         if (err) throw err;
 
-        console.log("member ", member);
+        // console.log("member ", member);
 
         response.render("eachDeal", {dealrow : dealrow, member: member });
 
@@ -735,6 +786,7 @@ app.get("/eachDeal", (request, response) => {
   
 });
 
+//get information for submit new deal route
 app.get("/submitDeal", (request, response) => {
   let sessionObj = request.session;
 
@@ -753,7 +805,7 @@ app.get("/submitDeal", (request, response) => {
     connection.query(getDeal, [member_id], (err, dealResults) => {
       if (err) throw err;
 
-      console.log("deal results : ", dealResults);
+      // console.log("deal results : ", dealResults);
 
       let member = dealResults[0][0];
       let merchant = dealResults[1];
@@ -779,7 +831,8 @@ app.get("/submitDeal", (request, response) => {
   }
 });
 
-//post new
+
+//post new deal
 app.post("/submitDeal", (request, response) => {
   let sessionObj = request.session;
   let member_id = sessionObj.authen;
@@ -821,46 +874,21 @@ app.post("/submitDeal", (request, response) => {
 
   connection.query(
     newDeal,
-    [
-      offer_name,
-      offer_desc,
-      offer_image,
-      offer_code,
-      offer_url,
-      start_date,
-      expiry_date,
-      dateSubmitted,
-      merchant_id,
-      
-      discount_type_id,
-      category_id,
-      location_type_id,
-      region_id,
-      county_id,
-      member_id,
-      discount_type_id,
-      category_id,
-      location_type_id,
-      region_id,
-      county_id,
-    ],
+    [ offer_name, offer_desc, offer_image, offer_code, offer_url, start_date, expiry_date, dateSubmitted,
+      merchant_id, discount_type_id, category_id, location_type_id, region_id, county_id, member_id,
+      discount_type_id, category_id, location_type_id, region_id, county_id,  ],
     (err, dealobject) => {
       if (err) throw err;
 
       //console.log(dealobject);
-
-      // let selectMerchant = dealobject[1][0].merchant;
-      // let selectDiscountType = dealobject[2][0].discountType;
-      // let selectCategory = dealobject[3][0].category;
-      // let selectLocationType = dealobject[4][0].locationType;
-      // let selectRegion = dealobject[5][0].region;
-      // let selectCounty = dealobject[6][0].county;
 
       response.send("Deal has been submitted");
     }
   );
 });
 
+
+//get information to submit new voucher route
 app.get("/submitVoucher", (request, response) => {
   let sessionObj = request.session;
 
@@ -879,7 +907,7 @@ app.get("/submitVoucher", (request, response) => {
     connection.query(getDeal, [member_id], (err, dealResults) => {
       if (err) throw err;
 
-      console.log("deal results : ", dealResults);
+      // console.log("deal results : ", dealResults);
 
       let member = dealResults[0][0];
       let merchant = dealResults[1];
@@ -905,6 +933,8 @@ app.get("/submitVoucher", (request, response) => {
   }
 });
 
+
+//post new voucher
 app.post("/submitVoucher", (request, response) => {
   let sessionObj = request.session;
   let member_id = sessionObj.authen;
@@ -948,28 +978,12 @@ app.post("/submitVoucher", (request, response) => {
   connection.query(
     newDeal,
     [
-      offer_name,
-      offer_desc,
-      offer_image,
-      offer_code,
-      offer_url,
-      start_date,
-      expiry_date,
-      dateSubmitted,
-      merchant_id,
-      offer_type_id,
-      discount_type_id,
-      category_id,
-      location_type_id,
-      region_id,
-      county_id,
-      member_id,
-      discount_type_id,
-      category_id,
-      location_type_id,
-      region_id,
-      county_id,
+      offer_name, offer_desc, offer_image, offer_code, offer_url, start_date, expiry_date,
+      dateSubmitted, merchant_id, offer_type_id, discount_type_id, category_id, location_type_id,
+      region_id, county_id, member_id, discount_type_id, category_id, location_type_id,
+      region_id, county_id,
     ],
+
     (err, dealobject) => {
       if (err) throw err;
 
@@ -977,6 +991,7 @@ app.post("/submitVoucher", (request, response) => {
     }
   );
 });
+
 
 //save an offer
 app.post("/savedOffer", (request, response) => {
@@ -994,6 +1009,7 @@ app.post("/savedOffer", (request, response) => {
     response.redirect("dashboard");
   });
 });
+
 
 //view a saved offer in dashboard
 app.get("/viewOffer", (request, response) => {
@@ -1026,6 +1042,7 @@ app.get("/viewOffer", (request, response) => {
   }
 });
 
+
 //view a posted offer in dashboard
 app.get("/viewPostedOffer", (request, response) => {
   let sessionObj = request.session;
@@ -1052,7 +1069,7 @@ app.get("/viewPostedOffer", (request, response) => {
 
     connection.query(offerPosted, [id], (err, postedrow) => {
 
-      console.log("Row fetched from the database:", postedrow);
+      // console.log("Row fetched from the database:", postedrow);
 
       response.render("postedOffer", { postedrow : postedrow });
     });
@@ -1079,6 +1096,8 @@ app.get("/viewPostedOffer", (request, response) => {
 //   };
 //   });
 
+
+//delete saved offer in dashboard
 app.post("/deleteSavedOffer", (request, response) => {
   let memberid = request.body.memberid;
   let savedid = request.body.savedid;
@@ -1095,8 +1114,8 @@ app.post("/deleteSavedOffer", (request, response) => {
         return;
       }
 
-      console.log("saved : ", savedid);
-      console.log("member : ", memberid);
+      // console.log("saved : ", savedid);
+      // console.log("member : ", memberid);
 
       response.send(`<br><p> That has been updated! Go back to <a href='/dashboard'> Dashboard! </a></p></br>`);
     });
@@ -1129,7 +1148,7 @@ app.get("/viewLikedOffer", (request, response) => {
 
     connection.query(likedOffer, [id], (err, likedrow) => {
 
-      console.log("Row fetched from the database:", likedrow);
+      // console.log("Row fetched from the database:", likedrow);
 
       response.render("likedOffer", { likedrow : likedrow });
     });
@@ -1137,6 +1156,7 @@ app.get("/viewLikedOffer", (request, response) => {
 });
 
 
+//submit like to a voucher
 app.post("/submitVoucherLike", (request, response) => {
   let voucherID = request.body.offer_id;
   let sessionObj = request.session;
@@ -1150,7 +1170,7 @@ app.post("/submitVoucherLike", (request, response) => {
       if (err) throw err;
 
       if (result.length > 0) {
-        return response("You have already liked this offer");
+        return response.send("You have already liked this offer");
       }
 
       let insertLike = `INSERT INTO offer_likes (offer_id, member_id) VALUES (?, ?)`;
@@ -1158,7 +1178,7 @@ app.post("/submitVoucherLike", (request, response) => {
       connection.query(insertLike, [voucherID, userID], (err, row) => {
         if (err) throw err;
 
-        let likeCount = `UPDATE offer SET like = like + 1 WHERE offer_id = ?`;
+        let likeCount = `UPDATE offer SET likes = likes + 1 WHERE offer_id = ?`;
 
         connection.query(likeCount, [voucherID], (err, row) => {
           if (err) throw err;
@@ -1173,6 +1193,8 @@ app.post("/submitVoucherLike", (request, response) => {
   }
 });
 
+
+//submit like to a deal
 app.post("/submitDealLike", (request, response) => {
   let offerID = request.body.offer_id;
   let sessionObj = request.session;

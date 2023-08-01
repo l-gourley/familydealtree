@@ -36,10 +36,15 @@
                         <%= eachDeal.offer_desc %>
                     </p>
                     <p class="card-text">
-                        Merchant / Brand : <%= eachDeal.merchant%> on <%= datesub %>
+                        <% if(eachDeal.offer_code) { %>
+                        Deal Code : <%= eachDeal.offer_code %>
+                        <% } %>
                     </p>
                     <p class="card-text">
-                        Category: <%= eachDeal.category%> on <%= datesub %>
+                        Merchant / Brand : <%= eachDeal.merchant_name  %>
+                    </p>
+                    <p class="card-text">
+                        Category: <%= eachDeal.category %>
                     </p>
                     <p class="card-text">
                         <% if(eachDeal.start_date) { %>
